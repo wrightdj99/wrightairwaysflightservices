@@ -2,20 +2,18 @@
 //import './App.css';
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import uuid from 'react-uuid';
 
 function DisplayFlights() {
   //Extracts the parameters from the URL as identified in the route path in App.js
-  const {from, to, departureDate} = useParams();
   const [flightData, setFlightData] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   let count = 0;
 
   useEffect(() => {
-    axios.get('http://localhost:8080/flightservices/flights?from='+from+'&to='+to+'&departureDate='+departureDate).then(res=>{
+    axios.get('http://localhost:8080/flightservices/flights/').then(res=>{
       setFlightData(res.data);
       setLoading(false);
       console.log(res.data);
@@ -23,7 +21,8 @@ function DisplayFlights() {
   }, [count])
   return (
     <div>
-     <h2>Flights:</h2>
+    <h1>Wright Airways Flights</h1>
+     <h2>Current Upcoming Flights:</h2>
       <ul>
         {!isLoading?flightData.map(flight=>(
          <li key={uuid()}> 
@@ -31,7 +30,7 @@ function DisplayFlights() {
          DEPARTURE CITY: {flight.departureCity}<br/> 
          ARRIVAL CITY: {flight.arrivalCity}<br/>
          EST. DEPARTURE TIME: {flight.estimatedDepartureTime}<br/>  
-         <Link to={'/passengerDetails/'+flight.id}>Select</Link>
+         <Link to={'/PassengerDetails/'+flight.id}>Select</Link>
          </li>
         )):""}
         </ul>
