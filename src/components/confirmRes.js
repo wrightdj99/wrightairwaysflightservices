@@ -10,6 +10,7 @@ function ConfirmRes() {
       <h2>Your reservation is complete. The your flight code is {reservationId}.</h2>
       <br/>
       <Link to={'/'}>Back To Homepage</Link>
+      <Link to={'/CheckIn'}>Click here to check in for your flight now.</Link>
     </div>
   );
 }
