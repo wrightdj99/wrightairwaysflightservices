@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import moment from "moment";
 
 function PassengerDetails() {
    //Extracts the parameters from the URL as identified in the route path in App.js
@@ -59,7 +60,7 @@ function PassengerDetails() {
       <h3>AIRLINE: {!isLoading?data.operatingAirlines:""}</h3>
       <h3>DEPARTURE CITY: {!isLoading?data.departureCity:""}</h3>
       <h3>ARRIVAL CITY: {!isLoading?data.arrivalCity:""}</h3>
-      <h3>DEPARTURE DATE: {!isLoading?data.estimatedDepartureTime:""}</h3>
+      <h3>DEPARTURE DATE: {!isLoading?moment(data.estimatedDepartureTime, "YYYY-MM-DD hh:mm:ss+ZZ").format("MM/DD/YYYY - hh:mm A"):""}</h3>
       <br/>
       <h2>Passenger Details:</h2>
       <form>

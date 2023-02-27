@@ -9,20 +9,19 @@ function CheckIn() {
 
 const [passengerReservationID, setPassengerReservationID] = useState();
 const [passengerNumberOfBags, setPassengerNumberOfBags] = useState();
-const [passengerCheckIn, setPassengerCheckIn] = useState(false);
+const [confirmationMessage, setConfirmationMessage] = useState();
 
 
 function handleSubmit(event){
   event.preventDefault();
-  setPassengerCheckIn(true);
   const data = {
     reservationID: passengerReservationID,
     numberOfBags: passengerNumberOfBags,
-    checkIn: passengerCheckIn
+    checkIn: true
   };
   axios.put('http://localhost:8080/flightservices/reservations', data).then(
     res=>{
-      alert("SUCCESS!");
+      setConfirmationMessage("Your check in was successful!");
     }
   )
 }
@@ -36,6 +35,7 @@ function handleSubmit(event){
       </form>
       <br/>
       <button onClick={handleSubmit.bind(this)}>Confirm Check In</button><br/>
+      <p>{confirmationMessage}</p>
       <Link to={'/'}>Back To Homepage</Link>
     </div>
   );
