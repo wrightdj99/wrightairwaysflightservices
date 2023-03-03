@@ -15,6 +15,7 @@ function PassengerDetails() {
  
    let count = 0;
 
+   const [errorMessage, setErrorMessage] = useState();
    const [passengerFirstName, setPassengerFirstName] = useState();
    const [passengerLastName, setPassengerLastName] = useState();
    const [passengerMiddleName, setPassengerMiddleName] = useState();
@@ -27,7 +28,6 @@ function PassengerDetails() {
    useEffect(() => {
      axios.get('http://localhost:8080/flightservices/flights/'+flightId).then(res=>{
        setData(res.data);
-       setLoading(false);
        console.log(res.data);
      })
    }, [])
@@ -57,14 +57,16 @@ function PassengerDetails() {
     <div>
       <h1>Confirm Reservation:</h1>
       <h2>Flight Details:</h2>
-      <h3>AIRLINE: {!isLoading?data.operatingAirlines:""}</h3>
+      <h3>AIRLINE: {data.operatingAirlines}</h3>
       <h3>DEPARTURE CITY: {!isLoading?data.departureCity:""}</h3>
       <h3>ARRIVAL CITY: {!isLoading?data.arrivalCity:""}</h3>
       <h3>DEPARTURE DATE: {!isLoading?moment(data.estimatedDepartureTime, "YYYY-MM-DD hh:mm:ss+ZZ").format("MM/DD/YYYY - hh:mm A"):""}</h3>
       <br/>
+      <p>{errorMessage}</p>
+      <br/>
       <h2>Passenger Details:</h2>
       <form>
-        <p>First Name: <input type="text" name="firstName" onChange={e => setPassengerFirstName(e.target.value)}/></p> 
+        <p>First Name: <input type="text" name="firstName" onChange={e => setPassengerFirstName(e.target.value)} /></p> 
         <p>Middle Name: <input type="text" name="middleName" onChange={e => setPassengerMiddleName(e.target.value)}/></p> 
         <p>Last Name: <input type="text" name="lastName" onChange={e => setPassengerLastName(e.target.value)}/></p> 
         <p>Phone Number: <input type="text" name="phone" onChange={e => setPassengerPhone(e.target.value)}/></p> 
@@ -77,7 +79,7 @@ function PassengerDetails() {
         <p>CVV: <input type="password" name="cvv" onChange={e => setPassengerCardSecurityCode(e.target.value)}/></p> 
       </form>
       <br/>
-      <Link to={'/'}>Back To Homepage</Link>
+      <Link to={'/'}><button>Back To Homepage</button></Link><br/>
       <button onClick={handleSubmit.bind(this)}>Confirm Reservation</button>
     </div>
   );

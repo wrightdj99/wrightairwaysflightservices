@@ -1,5 +1,5 @@
 //import logo from './logo.svg';
-//import './App.css';
+import '../styles/WrightAirwaysStyles.css';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ function HomePage() {
          <p>ARRIVAL CITY: {flight.arrivalCity}<br/></p>
          <p>EST. DEPARTURE TIME: {moment(flight.estimatedDepartureTime, "YYYY-MM-DD hh:mm:ss+ZZ").format("MM/DD/YYYY - hh:mm A")}<br/></p> 
          {flight.layover != null ? <p>LAYOVER INFO: {flight.layover}</p>: ""} 
-         <Link to={'/PassengerDetails/'+flight.id}>Select</Link>
+         <Link to={'/PassengerDetails/'+flight.id}><button>Select</button></Link>
          </li>
         )):""}
         </ul>
